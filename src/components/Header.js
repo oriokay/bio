@@ -17,6 +17,9 @@ class Header extends HTMLElement {
                     </button>
                     
                     <ul class="nav-links" id="navLinks">
+                    // In the nav-links section, add:
+                        <li><a href="annees-universitaires.html" class="nav-link">
+                            <i class="fas fa-graduation-cap"></i> Années Universitaires</a></li>
                         <li><a href="/" class="nav-link active">Accueil</a></li>
                         <li><a href="#themes" class="nav-link">Thèmes</a></li>
                         <li><a href="#quiz" class="nav-link">Quiz</a></li>
