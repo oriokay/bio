@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioÉdu - Biologie pour Étudiants Algériens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #059669;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            padding: 10px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #059669;
+        }
+
+        .nav-link.dropdown::after {
+            content: "▼";
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            padding: 100px 20px;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #065f46;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #059669;
+            border: 2px solid #10b981;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #d1fae5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #059669;
+        }
+
+        /* Topics Section */
+        .topics {
+            padding: 80px 20px;
+            background: #f1f5f9;
+        }
+
+        .topics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .topic-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .topic-card h3 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 50px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🧬</div>
+                <span>BioÉdu</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#" class="nav-link">Accueil</a>
+                <a href="#themes" class="nav-link dropdown">Thèmes</a>
+                <a href="#quiz" class="nav-link dropdown">Quiz</a>
+                <a href="#examens" class="nav-link dropdown">Examens</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Maîtrisez la Biologie avec BioÉdu</h1>
+            <p>Ressources éducatives gratuites en biologie pour les étudiants algériens. Cours, quiz et examens adaptés au programme national.</p>
+            <div class="cta-buttons">
+                <a href="#themes" class="btn btn-primary">📚 Commencer à Apprendre</a>
+                <a href="#quiz" class="btn btn-secondary">🧠 Tester mes Connaissances</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-title">
+            <h2>Pourquoi Choisir BioÉdu ?</h2>
+            <p>Une plateforme complète conçue pour les étudiants algériens</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Cours Complets</h3>
+                <p>Cours détaillés suivant le programme algérien de biologie avec illustrations et exemples concrets.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧩</div>
+                <h3>Quiz Interactifs</h3>
+                <p>Quiz par thème avec correction immédiate pour évaluer et renforcer tes connaissances.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Examens Réels</h3>
+                <p>Sujets d'examens du Baccalauréat et universitaires des années précédentes avec corrigés.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Communauté</h3>
+                <p>Rejoins une communauté d'étudiants algériens pour échanger et s'entraider.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="themes" class="topics">
+        <div class="topics-container">
+            <div class="section-title">
+                <h2>Thèmes de Biologie</h2>
+                <p>Explore tous les domaines de la biologie</p>
+            </div>
+            
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <h3><span>🧬</span> Biologie Cellulaire</h3>
+                    <p>Structure et fonction des cellules, membranes cellulaires, organites.</p>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span>🧬</span> Génétique</h3>
+                    <p>ADN, hérédité, mutations, biotechnologies modernes.</p>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span>🌿</span> Écologie</h3>
+                    <p>Écosystèmes, chaînes alimentaires, environnement et développement durable.</p>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span>🫀</span> Physiologie Animale</h3>
+                    <p>Systèmes digestif, nerveux, circulatoire et respiratoire.</p>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span>🔬</span> Microbiologie</h3>
+                    <p>Bactéries, virus, champignons et immunologie.</p>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span>🦖</span> Évolution</h3>
+                    <p>Théories de l'évolution, sélection naturelle et diversité biologique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>BioÉdu</h3>
+                <p>Plateforme éducative gratuite de biologie pour les étudiants algériens.</p>
+            </div>
+            
+            <div>
+                <h3>Liens Rapides</h3>
+                <ul>
+                    <li><a href="#themes" style="color: #cbd5e1; text-decoration: none;">Thèmes</a></li>
+                    <li><a href="#quiz" style="color: #cbd5e1; text-decoration: none;">Quiz</a></li>
+                    <li><a href="#examens" style="color: #cbd5e1; text-decoration: none;">Examens</a></li>
+                    <li><a href="#contact" style="color: #cbd5e1; text-decoration: none;">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>Contact</h3>
+                <p>Pour les étudiants algériens, par des passionnés de biologie.</p>
+                <p>© 2024 BioÉdu. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add hover effect to feature cards
+            const cards = document.querySelectorAll('.feature-card, .topic-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.boxShadow = '0 10px 25px rgba(16, 185, 129, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+                });
+            });
+
+            // Simple mobile menu (basic implementation)
+            if(window.innerWidth <= 768) {
+                const navLinks = document.querySelector('.nav-links');
+                const logo = document.querySelector('.logo');
+                
+                // Create mobile menu button
+                const menuButton = document.createElement('button');
+                menuButton.innerHTML = '☰';
+                menuButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: #059669;
+                `;
+                
+                menuButton.addEventListener('click', () => {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                    navLinks.style.flexDirection = 'column';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '70px';
+                    navLinks.style.left = '0';
+                    navLinks.style.width = '100%';
+                    navLinks.style.background = 'white';
+                    navLinks.style.padding = '20px';
+                    navLinks.style.boxShadow = '0 10px 15px rgba(0,0,0,0.1)';
+                });
+                
+                logo.parentNode.insertBefore(menuButton, logo.nextSibling);
+            }
+        });
+    </script>
+</body>
+</html>
