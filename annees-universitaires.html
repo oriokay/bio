@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours par Année - BioÉdu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* University Years Specific Styles */
+        .university-years {
+            padding-top: 100px;
+        }
+
+        .year-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .year-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .year-tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .year-tab:hover {
+            border-color: var(--primary-green);
+            background: var(--light-green);
+        }
+
+        .year-tab.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .year-tab i {
+            font-size: 1.1rem;
+        }
+
+        .year-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .year-content.active {
+            display: block;
+        }
+
+        .year-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--light-green), white);
+            border-radius: var(--radius);
+        }
+
+        .year-title {
+            font-size: 2.5rem;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+        }
+
+        .year-description {
+            color: var(--gray-800);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-left-color: var(--dark-green);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .module-code {
+            background: var(--light-green);
+            color: var(--dark-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .module-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .module-credits {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .module-content {
+            margin: 1rem 0;
+            color: var(--gray-600);
+        }
+
+        .module-chapters {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .chapter-list {
+            list-style: none;
+        }
+
+        .chapter-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-50);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chapter-item i {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+        }
+
+        .resources {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .resource-btn {
+            padding: 0.5rem 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-btn:hover {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .exams-section {
+            background: var(--gray-50);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-top: 3rem;
+        }
+
+        .exam-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .exam-item {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .year-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .year-tab {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .year-header {
+                padding: 1.5rem;
+            }
+            
+            .year-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .year-nav, .footer, .btn {
+                display: none;
+            }
+            
+            .module-card {
+                break-inside: avoid;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header will be injected -->
+    <div id="header"></div>
+
+    <main class="university-years">
+        <div class="container">
+            <!-- Year Navigation -->
+            <div class="year-nav">
+                <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--dark-green);">
+                    <i class="fas fa-graduation-cap"></i> Programme Universitaire
+                </h2>
+                <div class="year-tabs" id="yearTabs">
+                    <button class="year-tab active" data-year="1">
+                        <i class="fas fa-1"></i> 1ère Année
+                    </button>
+                    <button class="year-tab" data-year="2">
+                        <i class="fas fa-2"></i> 2ème Année
+                    </button>
+                    <button class="year-tab" data-year="3">
+                        <i class="fas fa-3"></i> 3ème Année
+                    </button>
+                    <button class="year-tab" data-year="4">
+                        <i class="fas fa-4"></i> 4ème Année
+                    </button>
+                    <button class="year-tab" data-year="5">
+                        <i class="fas fa-5"></i> 5ème Année
+                    </button>
+                </div>
+            </div>
+
+            <!-- Year 1 Content -->
+            <div class="year-content active" id="year1">
+                <div class="year-header">
+                    <h1 class="year-title">1ère Année - Licence de Biologie</h1>
+                    <p class="year-description">
+                        Programme complet des matières fondamentales pour la première année de licence en biologie.
+                        Tous les cours, TD, et examens des universités algériennes.
+                    </p>
+                </div>
+
+                <!-- Modules Grid -->
+                <div class="modules-grid" id="modulesContainer">
+                    <!-- Modules will be loaded by JavaScript -->
+                </div>
+
+                <!-- Exams Section -->
+                <div class="exams-section">
+                    <h3><i class="fas fa-file-alt"></i> Sujets d'Examens - 1ère Année</h3>
+                    <div class="exam-list">
+                        <div class="exam-item">
+                            <span>Examen Final 2023</span>
+                            <a href="#" class="resource-btn">
+                                <i class="fas fa-download"></i> Télécharger
+                            </a>
+                        </div>
+                        <div class="exam-item">
+                            <span>Contrôle Continu 1</span>
+                            <a href="#" class="resource-btn">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                        </div>
+                        <div class="exam-item">
+                            <span>Corrigés 2022</span>
+                            <a href="#" class="resource-btn">
+                                <i class="fas fa-download"></i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Year 2 Content -->
+            <div class="year-content" id="year2">
+                <div class="year-header">
+                    <h1 class="year-title">2ème Année - Licence de Biologie</h1>
+                    <p class="year-description">
+                        Programme avancé avec spécialisation en biologie moléculaire, génétique et physiologie.
+                    </p>
+                </div>
+                <div id="year2Modules"></div>
+            </div>
+
+            <!-- Year 3 Content -->
+            <div class="year-content" id="year3">
+                <div class="year-header">
+                    <h1 class="year-title">3ème Année - Licence de Biologie</h1>
+                    <p class="year-description">
+                        Spécialisation approfondie avec options de parcours et projet de fin d'études.
+                    </p>
+                </div>
+                <div id="year3Modules"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer will be injected -->
+    <div id="footer"></div>
+
+    <!-- JavaScript Files -->
+    <script src="src/components/Header.js"></script>
+    <script src="src/components/Footer.js"></script>
+    <script>
+        // University Years Data
+        const universityData = {
+            year1: [
+                {
+                    id: "BIO101",
+                    title: "Chimie générale et organique",
+                    credits: "5 Crédits",
+                    description: "Introduction à la chimie générale, liaisons chimiques, stéréochimie, et principes de chimie organique.",
+                    chapters: [
+                        "Structure atomique et liaisons chimiques",
+                        "Stéréochimie et isomérie",
+                        "Groupes fonctionnels organiques",
+                        "Réactions organiques fondamentales",
+                        "Chimie des solutions"
+                    ],
+                    resources: ["cours", "td", "examens"]
+                },
+                {
+                    id: "BIO102",
+                    title: "Biologie cellulaire",
+                    credits: "6 Crédits",
+                    description: "Étude de la structure et fonction des cellules, membranes, organites cellulaires et division cellulaire.",
+                    chapters: [
+                        "Structure et organisation cellulaire",
+                        "Membranes cellulaires et transport",
+                        "Organites cellulaires",
+                        "Cycle cellulaire et mitose",
+                        "Communication cellulaire"
+                    ],
+                    resources: ["cours", "td", "tp", "examens"]
+                },
+                {
+                    id: "MAT101",
+                    title: "Mathématique Statistique",
+                    credits: "4 Crédits",
+                    description: "Bases mathématiques et statistiques appliquées aux sciences biologiques.",
+                    chapters: [
+                        "Calcul différentiel et intégral",
+                        "Statistiques descriptives",
+                        "Probabilités",
+                        "Tests statistiques",
+                        "Analyse de données biologiques"
+                    ],
+                    resources: ["cours", "td", "exercices"]
+                },
+                {
+                    id: "GEO101",
+                    title: "Géologie",
+                    credits: "3 Crédits",
+                    description: "Introduction à la géologie et aux processus géologiques influençant la biosphère.",
+                    chapters: [
+                        "Minéralogie et pétrologie",
+                        "Tectonique des plaques",
+                        "Stratigraphie",
+                        "Géologie historique",
+                        "Ressources géologiques"
+                    ],
+                    resources: ["cours", "td"]
+                },
+                {
+                    id: "PHY101",
+                    title: "Physique",
+                    credits: "4 Crédits",
+                    description: "Principes physiques fondamentaux appliqués aux systèmes biologiques.",
+                    chapters: [
+                        "Mécanique des fluides",
+                        "Thermodynamique",
+                        "Électricité et magnétisme",
+                        "Optique",
+                        "Physique des ondes"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                },
+                {
+                    id: "BIO103",
+                    title: "Biologie Animale",
+                    credits: "5 Crédits",
+                    description: "Étude de la diversité, anatomie et physiologie animales.",
+                    chapters: [
+                        "Classification animale",
+                        "Anatomie comparée",
+                        "Physiologie animale",
+                        "Comportement animal",
+                        "Évolution animale"
+                    ],
+                    resources: ["cours", "td", "tp", "examens"]
+                },
+                {
+                    id: "CHM102",
+                    title: "Thermodynamique et chimie des solutions",
+                    credits: "4 Crédits",
+                    description: "Principes thermodynamiques et propriétés des solutions chimiques.",
+                    chapters: [
+                        "Premier principe de la thermodynamique",
+                        "Deuxième principe et entropie",
+                        "Solutions idéales et réelles",
+                        "Propriétés colligatives",
+                        "Équilibres chimiques"
+                    ],
+                    resources: ["cours", "td"]
+                },
+                {
+                    id: "BIO104",
+                    title: "Biologie Végétale",
+                    credits: "5 Crédits",
+                    description: "Étude de la structure, fonction et physiologie des plantes.",
+                    chapters: [
+                        "Anatomie végétale",
+                        "Physiologie végétale",
+                        "Photosynthèse",
+                        "Reproduction végétale",
+                        "Systématique végétale"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                },
+                {
+                    id: "BIO105",
+                    title: "Zoologie",
+                    credits: "4 Crédits",
+                    description: "Étude approfondie des invertébrés et vertébrés.",
+                    chapters: [
+                        "Protozoaires et invertébrés",
+                        "Arthropodes",
+                        "Poissons et amphibiens",
+                        "Reptiles et oiseaux",
+                        "Mammifères"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                },
+                {
+                    id: "BIO106",
+                    title: "Biochimie",
+                    credits: "6 Crédits",
+                    description: "Étude des molécules biologiques et des voies métaboliques.",
+                    chapters: [
+                        "Acides aminés et protéines",
+                        "Enzymologie",
+                        "Métabolisme glucidique",
+                        "Métabolisme lipidique",
+                        "Métabolisme azoté"
+                    ],
+                    resources: ["cours", "td", "tp", "examens"]
+                },
+                {
+                    id: "BIO107",
+                    title: "Génétique",
+                    credits: "5 Crédits",
+                    description: "Principes de l'hérédité et de la génétique moléculaire.",
+                    chapters: [
+                        "Lois de Mendel",
+                        "Chromosomes et caryotype",
+                        "Génétique des populations",
+                        "Génétique moléculaire",
+                        "Mutations et réparation"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                },
+                {
+                    id: "BIO108",
+                    title: "Biophysique",
+                    credits: "3 Crédits",
+                    description: "Application des principes physiques aux systèmes biologiques.",
+                    chapters: [
+                        "Transport membranaire",
+                        "Biomécanique",
+                        "Bioélectricité",
+                        "Biophysique des macromolécules",
+                        "Techniques biophysiques"
+                    ],
+                    resources: ["cours", "td"]
+                },
+                {
+                    id: "BIO109",
+                    title: "Botanique",
+                    credits: "4 Crédits",
+                    description: "Étude systématique des plantes et de leur écologie.",
+                    chapters: [
+                        "Morphologie végétale",
+                        "Taxonomie végétale",
+                        "Écologie végétale",
+                        "Phytogéographie",
+                        "Plantes médicinales"
+                    ],
+                    resources: ["cours", "td", "sorties"]
+                },
+                {
+                    id: "BIO110",
+                    title: "Microbiologie",
+                    credits: "5 Crédits",
+                    description: "Étude des microorganismes et leurs interactions.",
+                    chapters: [
+                        "Bactériologie",
+                        "Virologie",
+                        "Mycologie",
+                        "Microbiologie environnementale",
+                        "Techniques microbiologiques"
+                    ],
+                    resources: ["cours", "td", "tp", "examens"]
+                },
+                {
+                    id: "BIO111",
+                    title: "Immunologie",
+                    credits: "4 Crédits",
+                    description: "Étude du système immunitaire et de ses réponses.",
+                    chapters: [
+                        "Immunité innée et adaptative",
+                        "Cellules immunitaires",
+                        "Anticorps et antigènes",
+                        "Réponses immunitaires",
+                        "Immunopathologie"
+                    ],
+                    resources: ["cours", "td"]
+                },
+                {
+                    id: "BIO112",
+                    title: "Biostatistique",
+                    credits: "3 Crédits",
+                    description: "Méthodes statistiques appliquées à la recherche biologique.",
+                    chapters: [
+                        "Échantillonnage",
+                        "Tests paramétriques",
+                        "Tests non-paramétriques",
+                        "Analyse de variance",
+                        "Logiciels statistiques"
+                    ],
+                    resources: ["cours", "td", "logiciels"]
+                },
+                {
+                    id: "BIO113",
+                    title: "Ecologie générale",
+                    credits: "4 Crédits",
+                    description: "Étude des interactions entre organismes et leur environnement.",
+                    chapters: [
+                        "Écosystèmes",
+                        "Dynamique des populations",
+                        "Communautés biologiques",
+                        "Biogéographie",
+                        "Conservation"
+                    ],
+                    resources: ["cours", "td", "sorties"]
+                },
+                {
+                    id: "INF101",
+                    title: "Outils Informatiques",
+                    credits: "3 Crédits",
+                    description: "Initiation aux outils informatiques pour la biologie.",
+                    chapters: [
+                        "Bureautique scientifique",
+                        "Traitement de données",
+                        "Présentations scientifiques",
+                        "Recherche bibliographique",
+                        "Logiciels spécialisés"
+                    ],
+                    resources: ["tp", "exercices", "projets"]
+                }
+            ],
+            year2: [
+                {
+                    id: "BIO201",
+                    title: "Biochimie structurale",
+                    credits: "6 Crédits",
+                    description: "Étude approfondie de la structure des biomolécules.",
+                    chapters: [
+                        "Structure des protéines",
+                        "Structure des acides nucléiques",
+                        "Enzymologie avancée",
+                        "Métabolisme intégré",
+                        "Régulation métabolique"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                },
+                {
+                    id: "BIO202",
+                    title: "Génétique moléculaire",
+                    credits: "6 Crédits",
+                    description: "Génétique au niveau moléculaire et techniques de biologie moléculaire.",
+                    chapters: [
+                        "Réplication de l'ADN",
+                        "Transcription et traduction",
+                        "Régulation génétique",
+                        "Techniques de biologie moléculaire",
+                        "Génie génétique"
+                    ],
+                    resources: ["cours", "td", "tp", "examens"]
+                },
+                {
+                    id: "BIO203",
+                    title: "Physiologie animale",
+                    credits: "5 Crédits",
+                    description: "Physiologie intégrative des systèmes animaux.",
+                    chapters: [
+                        "Physiologie nerveuse",
+                        "Physiologie endocrinienne",
+                        "Physiologie cardiovasculaire",
+                        "Physiologie respiratoire",
+                        "Physiologie rénale"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                }
+            ],
+            year3: [
+                {
+                    id: "BIO301",
+                    title: "Biologie du développement",
+                    credits: "6 Crédits",
+                    description: "Étude du développement embryonnaire et cellulaire.",
+                    chapters: [
+                        "Gamétogenèse et fécondation",
+                        "Développement embryonnaire",
+                        "Différenciation cellulaire",
+                        "Morphogenèse",
+                        "Régulation du développement"
+                    ],
+                    resources: ["cours", "td", "tp"]
+                },
+                {
+                    id: "BIO302",
+                    title: "Écologie évolutive",
+                    credits: "5 Crédits",
+                    description: "Interactions entre écologie et évolution.",
+                    chapters: [
+                        "Sélection naturelle",
+                        "Spéciation",
+                        "Coévolution",
+                        "Écologie comportementale",
+                        "Biologie de la conservation"
+                    ],
+                    resources: ["cours", "td", "projets"]
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize year tabs
+            initYearTabs();
+            
+            // Load first year modules
+            loadModules('year1');
+            
+            // Initialize year content
+            initializeYearContent();
+        });
+
+        function initYearTabs() {
+            const tabs = document.querySelectorAll('.year-tab');
+            const contents = document.querySelectorAll('.year-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const year = this.getAttribute('data-year');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `year${year}`) {
+                            content.classList.add('active');
+                            loadModules(`year${year}`);
+                        }
+                    });
+                });
+            });
+        }
+
+        function loadModules(year) {
+            const modules = universityData[year];
+            const container = document.getElementById('modulesContainer');
+            
+            if (!container) return;
+            
+            if (modules) {
+                container.innerHTML = modules.map(module => `
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div>
+                                <h3 class="module-title">${module.title}</h3>
+                                <span class="module-code">${module.id}</span>
+                            </div>
+                            <span class="module-credits">${module.credits}</span>
+                        </div>
+                        
+                        <p class="module-content">${module.description}</p>
+                        
+                        <div class="module-chapters">
+                            <h4><i class="fas fa-list-ol"></i> Chapitres:</h4>
+                            <ul class="chapter-list">
+                                ${module.chapters.map(chapter => `
+                                    <li class="chapter-item">
+                                        <i class="fas fa-book"></i> ${chapter}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="resources">
+                            ${module.resources.map(resource => `
+                                <a href="#" class="resource-btn">
+                                    <i class="fas fa-${getResourceIcon(resource)}"></i>
+                                    ${resource.charAt(0).toUpperCase() + resource.slice(1)}
+                                </a>
+                            `).join('')}
+                            <a href="/cours/${module.id}" class="resource-btn" style="background: var(--primary-green); color: white;">
+                                <i class="fas fa-external-link-alt"></i> Accéder au cours complet
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; background: white; border-radius: var(--radius);">
+                        <i class="fas fa-book" style="font-size: 3rem; color: var(--gray-300); margin-bottom: 1rem;"></i>
+                        <h3>Contenu en préparation</h3>
+                        <p>Les cours de cette année seront bientôt disponibles.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function getResourceIcon(resource) {
+            const icons = {
+                'cours': 'book',
+                'td': 'edit',
+                'tp': 'flask',
+                'examens': 'file-alt',
+                'exercices': 'dumbbell',
+                'logiciels': 'laptop-code',
+                'sorties': 'tree',
+                'projets': 'project-diagram'
+            };
+            return icons[resource] || 'file';
+        }
+
+        function initializeYearContent() {
+            // Create module containers for other years
+            ['year2', 'year3', 'year4', 'year5'].forEach(year => {
+                const container = document.getElementById(`${year}Modules`);
+                if (container) {
+                    container.innerHTML = `
+                        <div class="modules-grid" id="modules${year}"></div>
+                        <div class="exams-section">
+                            <h3><i class="fas fa-file-alt"></i> Sujets d'Examens - ${year.replace('year', '')}ème Année</h3>
+                            <p>Les ressources seront bientôt disponibles.</p>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Update navigation in header
+        document.addEventListener('headerLoaded', function() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.innerHTML += `
+                    <li><a href="annees-universitaires.html" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i> Années Universitaires
+                    </a></li>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
