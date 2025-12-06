@@ -486,3 +486,73 @@ footer {
         justify-content: center;
     }
 }
+
+/* University Section */
+.university-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f0fdf4, white);
+}
+
+.year-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.year-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.year-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-green);
+}
+
+.year-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
+}
+
+.year-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.year-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
+}
+
+.year-card p {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+
+.arrow {
+    color: var(--primary-green);
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+}
+
+.year-card:hover .arrow {
+    transform: translateX(5px);
+}
