@@ -1,1 +1,294 @@
+/* themes.css - Styles for themes/university years page */
+.themes-page {
+    padding-top: 20px;
+}
 
+.year-nav {
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+    background: var(--white);
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--light-green);
+}
+
+.year-tabs {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.year-tab {
+    padding: 0.8rem 1.8rem;
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.year-tab:hover {
+    border-color: var(--primary-green);
+    background: var(--light-green);
+}
+
+.year-tab.active {
+    background: var(--primary-green);
+    color: var(--white);
+    border-color: var(--primary-green);
+}
+
+.year-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.year-content.active {
+    display: block;
+}
+
+.year-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--light-green), var(--white));
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+}
+
+.year-title {
+    font-size: 2.5rem;
+    color: var(--dark-green);
+    margin-bottom: 1rem;
+}
+
+.year-description {
+    color: var(--gray-700);
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.module-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--primary-green);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.module-card:hover {
+    transform: translateY(-5px);
+    border-left-color: var(--dark-green);
+    box-shadow: var(--shadow-lg);
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.module-code {
+    background: var(--light-green);
+    color: var(--dark-green);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.module-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.module-credits {
+    color: var(--primary-green);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.module-content {
+    margin: 1.2rem 0;
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+.module-chapters {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-100);
+}
+
+.module-chapters h4 {
+    font-size: 1.1rem;
+    color: var(--gray-700);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chapter-list {
+    list-style: none;
+}
+
+.chapter-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--gray-50);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--gray-700);
+}
+
+.chapter-item:last-child {
+    border-bottom: none;
+}
+
+.resources {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.resource-btn {
+    padding: 0.6rem 1.2rem;
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--gray-700);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gray-200);
+}
+
+.resource-btn:hover {
+    background: var(--light-green);
+    color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.exams-section {
+    background: var(--gray-50);
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin-top: 3rem;
+    border: 1px solid var(--gray-200);
+}
+
+.exams-section h3 {
+    color: var(--gray-800);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exam-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.exam-item {
+    background: var(--white);
+    padding: 1.2rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--gray-200);
+    transition: all 0.3s ease;
+}
+
+.exam-item:hover {
+    border-color: var(--primary-green);
+    box-shadow: var(--shadow);
+}
+
+.exam-item span {
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design for Themes Page */
+@media (max-width: 768px) {
+    .year-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .year-tab {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .modules-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .year-header {
+        padding: 1.8rem;
+    }
+    
+    .year-title {
+        font-size: 2rem;
+    }
+    
+    .exam-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .module-card {
+        padding: 1.5rem;
+    }
+    
+    .resources {
+        flex-direction: column;
+    }
+    
+    .resource-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
