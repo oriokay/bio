@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'themes.html': 'nav-themes',
             'quiz.html': 'nav-quiz',
             'examens.html': 'nav-examens',
-            'contact.html': 'nav-contact'
+            'contact.html': 'nav-contact',
+            'admin.html' : 'nav-admin'
         };
         
         if (navLinks[currentPage]) {
