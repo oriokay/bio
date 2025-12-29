@@ -33,6 +33,9 @@ class Navigation extends HTMLElement {
                         <li><a href="contact.html" class="nav-link" id="nav-contact">
                             <span>📞</span> Contact
                         </a></li>
+                        <li><a href="admin.html" class="nav-link" id="nav-admin">
+                            <span></span> admin
+                        </a></li>
                     </ul>
                 </div>
             </nav>
