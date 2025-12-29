@@ -1,0 +1,35 @@
+<!-- Create admin.html - Simple dashboard for YOU to add content -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - BioÉdu</title>
+    <style>
+        .admin-dashboard { padding: 20px; max-width: 800px; margin: 0 auto; }
+        .module-form { background: #f5f5f5; padding: 20px; border-radius: 10px; }
+        .module-form input, .module-form textarea { width: 100%; margin-bottom: 15px; padding: 10px; }
+        .module-form button { background: #059669; color: white; padding: 10px 20px; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard - Ajouter du Contenu</h1>
+    <div class="admin-dashboard">
+        <div class="module-form">
+            <input type="text" id="moduleTitle" placeholder="Titre du module">
+            <textarea id="moduleContent" placeholder="Contenu du cours..." rows="10"></textarea>
+            <button onclick="saveModule()">Enregistrer le Module</button>
+        </div>
+    </div>
+    <script>
+        function saveModule() {
+            const module = {
+                title: document.getElementById('moduleTitle').value,
+                content: document.getElementById('moduleContent').value,
+                date: new Date().toISOString()
+            };
+            // Save to localStorage or a simple JSON file
+            localStorage.setItem('module_' + Date.now(), JSON.stringify(module));
+            alert('Module enregistré!');
+        }
+    </script>
+</body>
+</html>
