@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Firebase</title>
+</head>
+<body>
+    <h1>Testing Firebase Connection...</h1>
+    <div id="status">Loading...</div>
+    
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        
+        // Your config from firebase-config.js
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "bioedu-algerie.firebaseapp.com",
+            projectId: "bioedu-algerie",
+            storageBucket: "bioedu-algerie.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        try {
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            
+            document.getElementById('status').textContent = 
+                '✅ Firebase connected successfully!';
+            document.getElementById('status').style.color = 'green';
+            
+            console.log('Firebase App:', app);
+            console.log('Auth:', auth);
+            
+        } catch (error) {
+            document.getElementById('status').textContent = 
+                '❌ Error: ' + error.message;
+            document.getElementById('status').style.color = 'red';
+            console.error('Firebase error:', error);
+        }
+    </script>
+</body>
+</html>
