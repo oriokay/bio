@@ -31,6 +31,19 @@
             // Save to localStorage or a simple JSON file
             localStorage.setItem('module_' + Date.now(), JSON.stringify(module));
             alert('Module enregistré!');
+            // When student visits
+firestore.collection('analytics').doc('active_now').update({
+  [anonymousUserId]: {
+    timestamp: new Date(),
+    page: 'biologie-cellulaire',
+    lastAction: 'reading'
+  }
+});
+
+// Cleanup old entries every 5 minutes
+setInterval(() => {
+  // Remove entries older than 30 minutes
+}, 300000);
         }
     </script>
 </body>
